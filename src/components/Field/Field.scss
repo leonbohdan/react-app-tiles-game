@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/mixins";
 
 .field {
   display: grid;
@@ -6,19 +7,50 @@
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 1px;
 
+  
   &__tile {
+    position: relative;
     box-sizing: border-box;
     height: 120px;
     width: 120px;
-    border: 1px solid black;
+    border: 1px solid $border-color;
+    transition: transform 1s;
+    transform-style: preserve-3d;
 
     &:hover {
       cursor: pointer;
-      border: 2px solid $border-color;
+      border: 1px solid $border-color-hover;
+    }
+
+    // &:hover {
+    //   cursor: pointer;
+    //   border: 2px solid $border-color-hover;
+    //   @include random-color();
+    // }
+
+  }
+  
+  &__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+
+    &--front {
+      background-color: $front-color;
+    }
+
+    &--back {
+      background-color: $red;
+      transform: rotateY(180deg);
     }
   }
 }
 
-.is-white {
+.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.is-completed {
   opacity: 0;
 }

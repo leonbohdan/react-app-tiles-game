@@ -1,0 +1,3 @@
+@mixin random-color() {
+  border-color: rgb(random(255), random(255), random(255));
+}
