@@ -1,0 +1,9 @@
+@import "./styles/vars";
+
+.App {
+  background-color: $bgc-gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
