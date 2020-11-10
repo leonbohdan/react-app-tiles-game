@@ -7,12 +7,18 @@
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 1px;
 
-  
+  &__scene {
+    height: 120px;
+    width: 120px;
+    border: 1px solid $scene-border-color;
+    perspective: 600px;
+  }
+
   &__tile {
     position: relative;
     box-sizing: border-box;
-    height: 120px;
-    width: 120px;
+    height: 100%;
+    width: 100%;
     border: 1px solid $border-color;
     transition: transform 1s;
     transform-style: preserve-3d;
@@ -52,5 +58,6 @@
 }
 
 .is-completed {
-  opacity: 0;
+  // opacity: 0;
+  visibility: hidden;
 }
