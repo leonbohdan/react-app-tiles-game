@@ -1,50 +1,73 @@
 import './Field.scss';
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState, useReducer, useContext } from 'react';
 import CN from 'classnames';
+import { initialState } from '../../store/state';
+import { StateContext, DispatchContext } from '../../store/StateContext';
 
-function getRandomRgb() {
-  var num = Math.round(0xffffff * Math.random());
-  var r = num >> 16;
-  var g = (num >> 8) & 255;
-  var b = num & 255;
-  return "rgb(" + r + ", " + g + ", " + b + ")";
-}
+// console.log(initialState);
 
-const colors = {
-  one: getRandomRgb(),
-  two: getRandomRgb(),
-  tree: getRandomRgb(),
-  four: getRandomRgb(),
-  five: getRandomRgb(),
-  six: getRandomRgb(),
-  seven: getRandomRgb(),
-  eight: getRandomRgb(),
-};
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case 'color':
+//       return {
+//         ...state,
+//         isFirstTile: action.payload,
+//       }
+    
+//     case 'increase':
+//       return {
+//         ...state,
+//         count: state.count + 1,
+//       }
+    
+//     case 'toggle':
+//       return {
+//         ...state,
+//         tiles: state.tiles.map(tile => {
+//           if (tile.id === action.payload) {
+//             tile.toggle = !tile.toggle;
+//           }
 
-const initialState = [
-  { id: 1, color: colors.one, completed: false, toggle: false },
-  { id: 2, color: colors.two, completed: false, toggle: false },
-  { id: 3, color: colors.tree, completed: false, toggle: false },
-  { id: 4, color: colors.four, completed: false, toggle: false },
-  { id: 5, color: colors.five, completed: false, toggle: false },
-  { id: 6, color: colors.six, completed: false, toggle: false },
-  { id: 7, color: colors.seven, completed: false, toggle: false },
-  { id: 8, color: colors.eight, completed: false, toggle: false },
-  { id: 9, color: colors.one, completed: false, toggle: false },
-  { id: 10, color: colors.two, completed: false, toggle: false },
-  { id: 11, color: colors.tree, completed: false, toggle: false },
-  { id: 12, color: colors.four, completed: false, toggle: false },
-  { id: 13, color: colors.five, completed: false, toggle: false },
-  { id: 14, color: colors.six, completed: false, toggle: false },
-  { id: 15, color: colors.seven, completed: false, toggle: false },
-  { id: 16, color: colors.eight, completed: false, toggle: false },
-];
+//           return tile;
+//         }),
+//       }
+    
+    // case 'toggle':
+    //   return {
+    //     ...state,
+    //     tiles: [
+    //       ...state.tiles,
+    //       state.tiles.map(tile => {
+    //         if (tile.id === action.payload) {
+              
+    //         }
+    //       })
+    //     ]
+    //   }
 
-let twoChoosedTiles = [];
+//     default:
+//       return 1;
+//   }
+// }
 
 export const Field = () => {
-  const [tiles, setTiles] = useState(initialState);
-  const [isFirstTile, setIsFirstTile] = useState('');
+  const dispatch = useContext(DispatchContext);
+  const { count } = useContext(StateContext);
+
+  const [tiles, setTiles] = useState(initialState.tiles);
+  // const [count, setCount] = useState(initialState.count);
+  // const [{ count }, dispatch] = useReducer(
+  //   reducer,
+  //   initialState
+  // );
+  // const [{ tiles, twoChoosenTiles, isFirstTile }, dispatch] = useReducer(
+  //   reducer,
+  //   initialState
+  // );
+
+  // console.log(tiles, twoChoosenTiles, isFirstTile);
+
+  console.log(count);
 
   const clickHandler = ({ id, color }) => {
     setTiles(
@@ -57,23 +80,28 @@ export const Field = () => {
       }),
     );
 
-    if (!isFirstTile) {
-      setIsFirstTile(color);
-      twoChoosedTiles.push({ id, color });
+    // initialState.twoChoosenTiles.push({ id, color });
+
+    // dispatch({ type: 'toggle', payload: id });
+
+    if (initialState.twoChoosenTiles.length < 3) {
+      // dispatch({ type: 'color', payload: color });
+      initialState.twoChoosenTiles.push({ id, color });
     } else {
-      twoChoosedTiles.push({ id, color });
+      return;
+      // initialState.twoChoosenTiles.push({ id, color });
     }
 
-    if (twoChoosedTiles.length === 2) {
-      let equal = areEqual(twoChoosedTiles);
+    if (initialState.twoChoosenTiles.length === 2) {
+      let equal = areEqual(initialState.twoChoosenTiles);
 
       if (equal) {
         setTimeout(() => {
           setTiles(
             tiles.map((tile) => {
               if (
-                tile.color === twoChoosedTiles[0].color &&
-                tile.color === twoChoosedTiles[1].color
+                tile.color === initialState.twoChoosenTiles[0].color &&
+                tile.color === initialState.twoChoosenTiles[1].color
               ) {
                 tile.completed = !tile.completed;
               }
@@ -82,13 +110,15 @@ export const Field = () => {
             }),
           );
         }, 1000);
+
+        dispatch({type: 'increase'});
       } else {
         setTimeout(() => {
           setTiles(
             tiles.map((tile) => {
               if (
-                tile.id === twoChoosedTiles[0].id ||
-                tile.id === twoChoosedTiles[1].id
+                tile.id === initialState.twoChoosenTiles[0].id ||
+                tile.id === initialState.twoChoosenTiles[1].id
               ) {
                 tile.toggle = false;
               }
@@ -100,7 +130,7 @@ export const Field = () => {
       }
 
       setTimeout(() => {
-        twoChoosedTiles.splice(0, 2);
+        initialState.twoChoosenTiles.splice(0, 2);
       }, 1001);
     }
   };
