@@ -21,8 +21,6 @@ const colors = {
   eight: getRandomRgb(),
 };
 
-console.log(colors);
-
 const initialState = [
   { id: 1, color: colors.one, completed: false, toggle: false },
   { id: 2, color: colors.two, completed: false, toggle: false },
@@ -42,103 +40,73 @@ const initialState = [
   { id: 16, color: colors.eight, completed: false, toggle: false },
 ];
 
-console.log(initialState);
-
-let arrTiles = [];
+let twoChoosedTiles = [];
 
 export const Field = () => {
-  const [isFlipped, setIsFlipped] = useState(false);
   const [tiles, setTiles] = useState(initialState);
-  const [twoChoosedTiles, setTwoChoosedTiles] = useState('');
+  const [isFirstTile, setIsFirstTile] = useState('');
 
-  console.log(twoChoosedTiles);
-
-  const clickHandler = ({ id, color, completed }) => {
-
-    if (!twoChoosedTiles) {
-      setTwoChoosedTiles(color);
-      arrTiles.push(color);
-    }
-
-    if (twoChoosedTiles) {
-      arrTiles.push(color);
-    }
-
-    if (arrTiles.length === 2) {
-      let a = areEqual(arrTiles);
-
-      if (a === true) {
-        setTimeout(() => {
-          setTiles(
-            tiles.map((tile) => {
-              if (tile.color === arrTiles[0] && tile.color === arrTiles[1]) {
-                tile.completed = !tile.completed;
-              }
-  
-              return tile;
-            }),
-          );
-        }, 1500);
-      }
-      console.log(a);
-    }
-
-
-    // arrTiles.splice(0, 2);
-
-    // else if (twoChoosedTiles === color) {
-    //   setTiles(
-    //     tiles.map((tile) => {
-    //       if (tile.id === id) {
-    //         tile.completed = !tile.completed;
-    //       }
-
-    //       return tile;
-    //     }),
-    //   );
-    // }
-
-    // if (twoChoosedTiles !== color) {
-    //   setTiles(
-    //     tiles.map((tile) => {
-    //       if (tile.id === id) {
-    //         tile.toggle = !tile.toggle;
-    //       }
-
-    //       return tile;
-    //     }),
-    //   );
-    // }
-
+  const clickHandler = ({ id, color }) => {
     setTiles(
-      tiles.map(tile => {
+      tiles.map((tile) => {
         if (tile.id === id) {
           tile.toggle = !tile.toggle;
         }
 
         return tile;
-      })
+      }),
     );
 
-    // setTiles(
-    //   tiles.map((tile) => {
-    //     if (tile.id === id) {
-    //       tile.completed = !tile.completed;
-    //     }
+    if (!isFirstTile) {
+      setIsFirstTile(color);
+      twoChoosedTiles.push({ id, color });
+    } else {
+      twoChoosedTiles.push({ id, color });
+    }
 
-    //     return tile;
-    //   }),
-    // );
+    if (twoChoosedTiles.length === 2) {
+      let equal = areEqual(twoChoosedTiles);
 
-    // setIsFlipped(!isFlipped);
+      if (equal) {
+        setTimeout(() => {
+          setTiles(
+            tiles.map((tile) => {
+              if (
+                tile.color === twoChoosedTiles[0].color &&
+                tile.color === twoChoosedTiles[1].color
+              ) {
+                tile.completed = !tile.completed;
+              }
 
-    console.log(id);
-    console.log(color);
-    console.log(completed);
+              return tile;
+            }),
+          );
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          setTiles(
+            tiles.map((tile) => {
+              if (
+                tile.id === twoChoosedTiles[0].id ||
+                tile.id === twoChoosedTiles[1].id
+              ) {
+                tile.toggle = false;
+              }
+
+              return tile;
+            }),
+          );
+        }, 900);
+      }
+
+      setTimeout(() => {
+        twoChoosedTiles.splice(0, 2);
+      }, 1001);
+    }
   };
 
   const areEqual = (arr) => {
-    if (arr[0] === arr[1]) {
+    if (arr[0].color === arr[1].color) {
       return true;
     }
 
@@ -152,18 +120,14 @@ export const Field = () => {
           className={CN("field__scene", {
             "is-completed": tile.completed,
           })}
-          // className="field__scene"
           key={tile.id}
         >
           <div
             className={CN("field__tile", {
               "is-flipped": tile.toggle,
             })}
-            // className="field__tile"
             onClick={() => {
               clickHandler(tile);
-              arrTiles.push(tile.color);
-              arrTiles.pop();
             }}
           >
             <div className="field__face field__face--front"></div>

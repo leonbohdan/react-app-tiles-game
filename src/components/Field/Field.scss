@@ -20,20 +20,13 @@
     height: 100%;
     width: 100%;
     border: 1px solid $border-color;
-    transition: transform 1s;
+    transition: transform 0.9s ease-in-out;
     transform-style: preserve-3d;
 
     &:hover {
       cursor: pointer;
       border: 1px solid $border-color-hover;
     }
-
-    // &:hover {
-    //   cursor: pointer;
-    //   border: 2px solid $border-color-hover;
-    //   @include random-color();
-    // }
-
   }
   
   &__face {
@@ -58,6 +51,5 @@
 }
 
 .is-completed {
-  // opacity: 0;
   visibility: hidden;
 }
