@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/react-app-tiles-game/static/css/main.b7f22829.chunk.css",
-    "main.js": "/react-app-tiles-game/static/js/main.b914aa13.chunk.js",
-    "main.js.map": "/react-app-tiles-game/static/js/main.b914aa13.chunk.js.map",
+    "main.css": "/react-app-tiles-game/static/css/main.e5d504cf.chunk.css",
+    "main.js": "/react-app-tiles-game/static/js/main.ecef8061.chunk.js",
+    "main.js.map": "/react-app-tiles-game/static/js/main.ecef8061.chunk.js.map",
     "runtime-main.js": "/react-app-tiles-game/static/js/runtime-main.8cfc98be.js",
     "runtime-main.js.map": "/react-app-tiles-game/static/js/runtime-main.8cfc98be.js.map",
-    "static/js/2.e3df9761.chunk.js": "/react-app-tiles-game/static/js/2.e3df9761.chunk.js",
-    "static/js/2.e3df9761.chunk.js.map": "/react-app-tiles-game/static/js/2.e3df9761.chunk.js.map",
+    "static/js/2.7e1cc0d0.chunk.js": "/react-app-tiles-game/static/js/2.7e1cc0d0.chunk.js",
+    "static/js/2.7e1cc0d0.chunk.js.map": "/react-app-tiles-game/static/js/2.7e1cc0d0.chunk.js.map",
     "index.html": "/react-app-tiles-game/index.html",
-    "static/css/main.b7f22829.chunk.css.map": "/react-app-tiles-game/static/css/main.b7f22829.chunk.css.map",
-    "static/js/2.e3df9761.chunk.js.LICENSE.txt": "/react-app-tiles-game/static/js/2.e3df9761.chunk.js.LICENSE.txt"
+    "static/css/main.e5d504cf.chunk.css.map": "/react-app-tiles-game/static/css/main.e5d504cf.chunk.css.map",
+    "static/js/2.7e1cc0d0.chunk.js.LICENSE.txt": "/react-app-tiles-game/static/js/2.7e1cc0d0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8cfc98be.js",
-    "static/js/2.e3df9761.chunk.js",
-    "static/css/main.b7f22829.chunk.css",
-    "static/js/main.b914aa13.chunk.js"
+    "static/js/2.7e1cc0d0.chunk.js",
+    "static/css/main.e5d504cf.chunk.css",
+    "static/js/main.ecef8061.chunk.js"
   ]
 }
