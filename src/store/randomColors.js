@@ -14,7 +14,8 @@ export function shuffle(array) {
 }
 
 export const areEqual = (arr) => {
-  return arr[0].color === arr[1].color;
+  return (arr[0].color === arr[1].color)
+    && (arr[0].id !== arr[1].id);
 };
 
 export const headingColor = getRandomRgb();

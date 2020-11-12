@@ -37,6 +37,10 @@ export const Field = () => {
   }, [twoChoosenTiles, dispatch]);
 
   const clickHandler = ({ id, color }) => {
+    if (twoChoosenTiles.length === 2) {
+      return;
+    }
+
     dispatch({ type: 'toggle', payload: id });
 
     dispatch({ type: 'addColor', payload: { id, color } });

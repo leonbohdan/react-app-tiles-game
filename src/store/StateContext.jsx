@@ -45,7 +45,7 @@ const reducer = (state, action) => {
 
           return {
             ...tile,
-            toggle: !tile.toggle,
+            toggle: false,
           }
         })
       }

@@ -18,7 +18,7 @@ function App() {
             className="App__heading"
             style={{ color: `${headingColor}` }}
           >
-            Choose the same tiles do they disappear
+            Find Every Same Colour Cells
           </h2>
           <Field />
         </>
