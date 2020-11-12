@@ -1,65 +1,78 @@
 import React, { useReducer } from 'react';
-
-function getRandomRgb() {
-  var num = Math.round(0xffffff * Math.random());
-  var r = num >> 16;
-  var g = (num >> 8) & 255;
-  var b = num & 255;
-  return "rgb(" + r + ", " + g + ", " + b + ")";
-}
-
-const colors = {
-  one: getRandomRgb(),
-  two: getRandomRgb(),
-  tree: getRandomRgb(),
-  four: getRandomRgb(),
-  five: getRandomRgb(),
-  six: getRandomRgb(),
-  seven: getRandomRgb(),
-  eight: getRandomRgb(),
-};
+import { colors } from './randomColors';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "color":
+    case 'toggle':
       return {
         ...state,
-        isFirstTile: action.payload,
+        tiles: state.tiles.map(tile => {
+          if (tile.id !== action.payload) {
+            return tile;
+          }
+
+          return {
+            ...tile,
+            toggle: !tile.toggle,
+          }
+        })
+      }
+
+    case 'equal':
+      return {
+        ...state,
+        tiles: state.tiles.map(tile => {
+          if (tile.color !== action.payload[0].color
+            && tile.color !== action.payload[1].color) {
+            return tile;
+          }
+
+          return {
+            ...tile,
+            completed: !tile.completed,
+          }
+        })
+      }
+
+    case 'noEqual':
+      return {
+        ...state,
+        tiles: state.tiles.map(tile => {
+          if (tile.id !== action.payload[0].id
+            && tile.id !== action.payload[1].id) {
+            return tile;
+          }
+
+          return {
+            ...tile,
+            toggle: !tile.toggle,
+          }
+        })
+      }
+
+    case "addColor":
+      return {
+        ...state,
+        twoChoosenTiles: [
+          ...state.twoChoosenTiles,
+          action.payload,
+        ],
+      };
+
+    case "deleteColors":
+      return {
+        ...state,
+        twoChoosenTiles: [],
       };
 
     case "increase":
       return {
         ...state,
-        count: state.count + 1,
+        counter: state.counter + 1,
       };
-
-    case "toggle":
-      return {
-        ...state,
-        tiles: state.tiles.map((tile) => {
-          if (tile.id === action.payload) {
-            tile.toggle = !tile.toggle;
-          }
-
-          return tile;
-        }),
-      };
-
-    // case 'toggle':
-    //   return {
-    //     ...state,
-    //     tiles: [
-    //       ...state.tiles,
-    //       state.tiles.map(tile => {
-    //         if (tile.id === action.payload) {
-
-    //         }
-    //       })
-    //     ]
-    //   }
 
     default:
-      return 1;
+      return state;
   }
 };
 
@@ -83,7 +96,7 @@ export const initialState = {
     { id: 16, color: colors.eight, completed: false, toggle: false },
   ],
   twoChoosenTiles: [],
-  count: 0,
+  counter: 0,
 };
 
 export const DispatchContext = React.createContext(() => { });

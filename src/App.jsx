@@ -1,20 +1,25 @@
 import './App.scss';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { Field } from './components/Field/Field';
 import { End } from './components/End/End';
 import { StateContext } from './store/StateContext';
+import { headingColor } from './store/randomColors';
 
 function App() {
-  const { count } = useContext(StateContext);
+  const { counter } = useContext(StateContext);
 
-  console.log(count);
   return (
     <div className="App">
-      {count === 8 ? (
+      {counter === 8 ? (
         <End />
       ) : (
         <>
-          <h2 className="App__heading">Choose the same tiles</h2>
+          <h2
+            className="App__heading"
+            style={{ color: `${headingColor}` }}
+          >
+            Choose the same tiles do they disappear
+          </h2>
           <Field />
         </>
       )}
