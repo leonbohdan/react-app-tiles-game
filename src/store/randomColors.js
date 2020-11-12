@@ -6,6 +6,13 @@ function getRandomRgb() {
   return "rgb(" + r + ", " + g + ", " + b + ")";
 }
 
+export function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 export const areEqual = (arr) => {
   return arr[0].color === arr[1].color;
 };
