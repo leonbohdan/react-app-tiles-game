@@ -1,0 +1,14 @@
+@import "./styles/vars";
+
+.App {
+  background-color: $bgc-gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  &__heading {
+    text-align: center;
+  }
+}
